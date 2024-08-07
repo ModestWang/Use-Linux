@@ -1,7 +1,7 @@
 #!/bin/bash
-if [ -f /etc/systemd/system/rc-local.service ];
+if [ -f /etc/systemd/system/multi-user.target.wants/rc-local.service ];
 then
-    echo 'Error: find /etc/systemd/system/rc-local.service'
+    echo 'Error: find /etc/systemd/system/multi-user.target.wants/rc-local.service'
     echo 'please append sentences below by yourselves:
 
 [Install]
@@ -10,11 +10,25 @@ Alias=rc-local.service
 
 '
 else
-    sudo cp /lib/systemd/system/rc-local.service /etc/systemd/system/rc-local.service
-    sudo ln -fs /lib/systemd/system/rc-local.service /etc/systemd/system/rc-local.service
-    sudo echo '[Install]
+    sudo echo '''
+[Unit]
+Description=/etc/rc.local Compatibility
+Documentation=man:systemd-rc-local-generator(8)
+ConditionFileIsExecutable=/etc/rc.local
+After=network.target
+
+[Service]
+Type=forking
+ExecStart=/etc/rc.local start
+TimeoutSec=0
+RemainAfterExit=yes
+GuessMainPID=no
+
+[Install]
 WantedBy=multi-user.target
-Alias=rc-local.service' >> /etc/systemd/system/rc-local.service
+Alias=rc-local.service
+    '''>> /lib/systemd/system/rc-local.service
+    sudo systemctl enable rc-local.service
 fi
 
 #创建/etc/rc.local文件
