@@ -10,8 +10,9 @@ Alias=rc-local.service
 
 '
 else
+    sudo cp /lib/systemd/system/rc-local.service /etc/systemd/system/rc-local.service
     sudo ln -fs /lib/systemd/system/rc-local.service /etc/systemd/system/rc-local.service
-    echo '[Install]
+    sudo echo '[Install]
 WantedBy=multi-user.target
 Alias=rc-local.service' >> /etc/systemd/system/rc-local.service
 fi
@@ -19,6 +20,7 @@ fi
 #创建/etc/rc.local文件
 if [ -f /etc/rc.local ];
 then
+    sudo chmod 777 /etc/rc.local
     echo 'Error: find /etc/rc.local'
     echo 'please append sentences below by yourselves:
 
@@ -29,8 +31,8 @@ exit 0
 '
 else
     sudo touch /etc/rc.local
-    #编辑/etc/rc.local文件
-    echo '#!/bin/bash
+    sudo chmod 777 /etc/rc.local
+    sudo echo '#!/bin/bash
 /bin/backlight_load.sh
 exit 0' > /etc/rc.local
 fi

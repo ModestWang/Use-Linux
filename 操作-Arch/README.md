@@ -1,5 +1,8 @@
 # ArchLinux
 
+## 声音问题
+paru -S sof-firmware
+
 ## archlinuxcn
 ```
 使用方法：在 /etc/pacman.conf 文件末尾添加以下两行：
@@ -44,7 +47,7 @@ GTK_IM_MODULE=fcitx
 QT_IM_MODULE=fcitx
 XMODIFIERS=@im=fcitx
 SDL_IM_MODULE=fcitx
-GLFW_IM_MODULE=ibus
+GLFW_IM_MODULE=fcitx
 ```
 
 ## fcitx
@@ -56,7 +59,7 @@ sudo pacman -S fcitx5-pinyin-zhwiki fcitx5-pinyin-moegirl
 
 ## flatpak
 ```
-sudo apt install flatpak
+sudo pacman -S flatpak
 
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo # 官方源
 
