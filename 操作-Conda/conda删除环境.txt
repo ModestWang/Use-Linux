@@ -1,0 +1,11 @@
+#pip：
+pip freeze >requirements.txt
+pip uninstall -r requirements.txt -y
+
+#conda：
+conda clean -a -y
+
+conda remove --[name env_name] --all -y
+
+conda remove --name pyml --all -y
+

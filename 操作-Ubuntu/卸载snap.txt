@@ -1,0 +1,42 @@
+#执行几次
+for p in $(snap list | awk '{print $1}'); do
+  sudo snap remove $p
+done
+
+#执行几次
+for p in $(snap list | awk '{print $1}'); do
+  sudo snap remove $p
+done
+
+#然后执行
+#删除 Snap 的 Core 文件
+sudo systemctl stop snapd
+sudo systemctl disable --now snapd.socket
+ 
+for m in /snap/core/*; do
+   sudo umount $m
+done
+
+#删除 Snap 的管理工具
+sudo apt autoremove --purge snapd
+
+#删除 Snap 的目录
+rm -rf ~/snap
+sudo rm -rf /snap
+sudo rm -rf /var/snap
+sudo rm -rf /var/lib/snapd
+sudo rm -rf /var/cache/snapd
+
+#配置 APT 参数：禁止 apt 安装 snapd
+sudo sh -c "cat > /etc/apt/preferences.d/no-snapd.pref" << EOL
+Package: snapd
+Pin: release a=*
+Pin-Priority: -10
+EOL
+
+#禁用 snap Firefox 的更新
+sudo sh -c "cat > /etc/apt/preferences.d/no-firefox.pref" << EOL
+Package: firefox
+Pin: release a=*
+Pin-Priority: -10
+EOL

@@ -1,0 +1,19 @@
+# 执行以下命令进行配置：
+git config --global  user.name "ModestWang"
+git config --global user.email "1598593280@qq.com"
+
+# 然后执行以下命令生成秘钥：
+ssh-keygen -t rsa -C "1598593280@qq.com"
+
+# git代理设置方法解决
+
+git config --global http.proxy http://127.0.0.1:1080
+git config --global https.proxy https://127.0.0.1:1080
+
+git config --global --unset http.proxy
+git config --global --unset https.proxy
+
+npm config delete proxy
+
+git config --global http.proxy 'socks5://127.0.0.1:1080'
+git config --global https.proxy 'socks5://127.0.0.1:1080'

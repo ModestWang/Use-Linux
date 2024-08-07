@@ -1,0 +1,13 @@
+# 在安装路径创建虚拟环境
+conda create -n pytorch python=3.10
+
+# 在其他位置创建虚拟环境
+conda create --prefix=/media/modest/extra/App/miniconda3/envs/pytorch python=3.10
+
+# 添加envs路径
+conda config --append envs_dirs /media/modest/extra/App/miniconda3/envs
+# 查看当前的环境目录
+conda config --show envs_dirs
+
+# 查看当前存在哪些虚拟环境
+conda env list 
